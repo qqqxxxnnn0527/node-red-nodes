@@ -193,11 +193,13 @@ function RedisConfig(n) {
 
   function RedisCmd(n) {
     RED.nodes.createNode(this, n);
+    
     this.server = RED.nodes.getNode(n.server);
     this.command = n.command;
     this.name = n.name;
     this.topic = n.topic;
     this.params = n.params;
+    
     var node = this;
     this.block = n.block || false;
     let id = this.block ? n.id : this.server.name;
@@ -225,6 +227,7 @@ function RedisConfig(n) {
           topic = undefined;
         }
       }
+      
       let payload = undefined;
 
       if (msg.payload) {

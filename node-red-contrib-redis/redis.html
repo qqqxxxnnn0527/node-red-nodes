@@ -647,6 +647,8 @@
 <script type="text/x-red" data-help-name="redis-command">
     <p>Redis Command</p>
     <p>Execute command inside Redis sending payload array as parameters and return the result as payload.</p>
+    <p>优先使用msg.topic和msg.payload</p>
+    <p>payload未设置时，会将topic的值设置给payload</p>
 </script>
 
 
