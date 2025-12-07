@@ -1,0 +1,38 @@
+{
+  "name": "node-red-contrib-odoo-xmlrpc-2021",
+  "version": "0.1.1",
+  "description": "Odoo XMLRPC API client nodes for Node-RED",
+  "dependencies": {
+    "odoo-xmlrpc": "git+https://github.com/faisalsami/odoo-xmlrpc.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dafi87/node-red-contrib-odoo-xmlrpc-2021.git"
+  },
+  "keywords": [
+    "node-red",
+    "odoo",
+    "xmlrpc"
+  ],
+  "node-red": {
+    "nodes": {
+      "odoo-xmlrpc-config": "odoo-xmlrpc-config.js",
+      "odoo-xmlrpc-read": "read-node.js",
+      "odoo-xmlrpc-search": "search-node.js",
+      "odoo-xmlrpc-search-read": "search-read-node.js",
+      "odoo-xmlrpc-create": "create-node.js",
+      "odoo-xmlrpc-update": "update-node.js",
+      "odoo-xmlrpc-exec": "exec-node.js",
+      "odoo-xmlrpc-unlink": "unlink-node.js"
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/dafi87/node-red-contrib-odoo-xmlrpc-2021/issues"
+  },
+  "homepage": "https://github.com/dafi87/node-red-contrib-odoo-xmlrpc-2021#readme",
+  "main": "create-node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC"
+}
