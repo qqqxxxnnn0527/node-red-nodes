@@ -1,0 +1,207 @@
+[
+    {
+        "id": "8aa7606c3e4c6d84",
+        "type": "tab",
+        "label": "odoo-example",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "80356fb219d7baa0",
+        "type": "inject",
+        "z": "8aa7606c3e4c6d84",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "9b944e06d8fbe0ac"
+            ]
+        ]
+    },
+    {
+        "id": "9b944e06d8fbe0ac",
+        "type": "function",
+        "z": "8aa7606c3e4c6d84",
+        "name": "filters etc",
+        "func": "\nmsg.filters = [[[\"state\", \"=\", \"active\"]]];\nmsg.fields = ([\n    'name', \n    'login', \n]);\nmsg.limit = 10;\nmsg.offset = 0;\nmsg.order = \"id desc\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "04b85d07cea18ac5"
+            ]
+        ]
+    },
+    {
+        "id": "fd64f8a752d3483f",
+        "type": "debug",
+        "z": "8aa7606c3e4c6d84",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "288577c102507617",
+        "type": "inject",
+        "z": "8aa7606c3e4c6d84",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "34bb022001145118"
+            ]
+        ]
+    },
+    {
+        "id": "efdad3162b064289",
+        "type": "debug",
+        "z": "8aa7606c3e4c6d84",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "34bb022001145118",
+        "type": "function",
+        "z": "8aa7606c3e4c6d84",
+        "name": "filters etc",
+        "func": "msg.payload = [[[\"login\", \"=\", \"admin\"]]];\nmsg.limit = 10;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "6d6b907f6b9c2cd1"
+            ]
+        ]
+    },
+    {
+        "id": "04b85d07cea18ac5",
+        "type": "odoo-search-read",
+        "z": "8aa7606c3e4c6d84",
+        "name": "",
+        "host": "30328c4c4bb5642e",
+        "model": "res.users",
+        "filter": "",
+        "offset": 0,
+        "limit": 100,
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "fd64f8a752d3483f"
+            ]
+        ]
+    },
+    {
+        "id": "6d6b907f6b9c2cd1",
+        "type": "odoo-search",
+        "z": "8aa7606c3e4c6d84",
+        "name": "",
+        "host": "30328c4c4bb5642e",
+        "model": "res.users",
+        "filter": "",
+        "offset": 0,
+        "limit": 100,
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "eb1e5aa140a72eae"
+            ]
+        ]
+    },
+    {
+        "id": "eb1e5aa140a72eae",
+        "type": "odoo-read",
+        "z": "8aa7606c3e4c6d84",
+        "name": "",
+        "host": "30328c4c4bb5642e",
+        "model": "res.users",
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "efdad3162b064289"
+            ]
+        ]
+    },
+    {
+        "id": "30328c4c4bb5642e",
+        "type": "odoo-config",
+        "url": "http://127.0.0.1:8069",
+        "db": "demo",
+        "username": "admin",
+        "password": "demo"
+    },
+    {
+        "id": "d8e821e0bf434104",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@feitas/node-red-odoo": "0.0.3"
+        }
+    }
+]

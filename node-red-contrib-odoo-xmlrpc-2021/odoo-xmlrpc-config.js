@@ -1,6 +1,7 @@
 module.exports = function (RED) {
     function OdooXMLRPCConfigNode(n) {
         RED.nodes.createNode(this, n);
+        this.name = n.name;
         this.url = n.url;
         this.db = n.db;
         this.username = n.username;

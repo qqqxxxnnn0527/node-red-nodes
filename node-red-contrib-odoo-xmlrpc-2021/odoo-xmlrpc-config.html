@@ -2,24 +2,33 @@
     RED.nodes.registerType('odoo-config', {
         category: 'config',
         defaults: {
+            name: {value: "", required: false},
             url: {value: "", required: true},
             db: {value: "", required: true},
             username: {value: "", required: true},
             password: {value: "", required: true},
         },
         label: function () {
-            return this.url + " [" + this.db + "]";
+            if (this.name) {
+                return this.name;
+            } else {
+                return this.username + " [" + this.db + "]";
+            }
         }
     });
 </script>
 
 <script type="text/x-red" data-template-name="odoo-config">
     <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-edit"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+    <div class="form-row">
         <label for="node-config-input-url"><i class="fa fa-globe"></i> URL</label>
         <input type="text" id="node-config-input-url">
     </div>
     <div class="form-row">
-        <label for="node-config-input-db"><i class="fa fa-user"></i> Database name</label>
+        <label for="node-config-input-db"><i class="fa fa-database"></i> Database name</label>
         <input type="text" id="node-config-input-db">
     </div>
     <div class="form-row">
