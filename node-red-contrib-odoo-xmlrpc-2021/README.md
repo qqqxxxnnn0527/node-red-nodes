@@ -1,10 +1,16 @@
 # node-red odoo
 
-## Additions in this fork
+## Don't forget
 
-I picked up the work by https://github.com/crottolo/ and added a node to execute methods/buttons via calling the *execute_kw* function. This got necessary to fire actions in Odoo like confirming production orders etc.
+node-red-contrib-odoo-xmlrpc-2021
 
-## Example message properties
+## Why this package
+
+- The original package is not maintained anymore.
+- This package treats limit and offset as parameters to the Odoo API, rather than merely restricting the number of records returned on the frontend.
+- This package documents the usage of each node more comprehensively.
+
+## Example
 
 ### search read
 

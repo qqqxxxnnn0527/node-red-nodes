@@ -25,15 +25,6 @@ module.exports = function (RED) {
                     return handle_error(err, node);
                 }
 
-                var offset = msg.offset;
-                if (isDefinedValue(offset) && !isUInt(offset)){
-                  return handle_error(new Error('When offset is provided, it must be a positive integer number'), node);
-                }
-                var limit = msg.limit;
-                if (isDefinedValue(limit) && !isUInt(limit)){
-                  return handle_error(new Error('When limit is provided, it must be a positive integer number'), node);
-                }
-
                 var inParams;
                 if (msg.filters){
                   if (!Array.isArray(msg.filters)){
@@ -44,21 +35,57 @@ module.exports = function (RED) {
                   inParams = [];
                   inParams.push([]);
                 }
+                
+                var offset = msg.offset;
+                if (isDefinedValue(offset)){
+                  if (!isUInt(offset)){
+                    return handle_error(new Error('When offset is provided, it must be a positive integer number'), node);
+                  } else {
+                    inParams.push(offset);
+                  }
+                } else {
+                  inParams.push(config.offset); // position parameter, default value
+                }
+                var limit = msg.limit;
+                if (isDefinedValue(limit)){
+                  if (!isUInt(limit)){
+                    return handle_error(new Error('When limit is provided, it must be a positive integer number'), node);
+                  } else {
+                    inParams.push(limit);
+                  }
+                } else {
+                  inParams.push(config.limit); // position parameter, default value
+                }
+                var order = msg.order;
+                if (isDefinedValue(order)){
+                  if (typeof order !== 'string'){
+                    return handle_error(new Error('When order is provided, it must be a string'), node);
+                  } else {
+                    inParams.push(order);
+                  }
+                } else {
+                  inParams.push(config.order); // position parameter, default value
+                }
+
+                var count = msg.count;
+                if (isDefinedValue(count)){
+                  if (typeof count !== 'boolean'){
+                    return handle_error(new Error('When count is provided, it must be a boolean'), node);
+                  } else {
+                    inParams.push(count);
+                  }
+                } else {
+                  inParams.push(config.count);
+                }
+
                 var params = [];
-                params.push(inParams);
+                params.push(inParams); 
+
                 //node.log('Searching for model "' + config.model + '"...');
+                // domain, offset=0, limit=None, order=None, count=False
                 odoo_inst.execute_kw(config.model, 'search', params, function (err, value) {
                     if (err) {
                         return handle_error(err, node);
-                    }
-
-                    if (isDefinedValue(offset)){
-                      //Jump the x first elements (where x has the value of the "offset" variable)
-                      value = value.slice(offset);
-                    }
-                    if (isDefinedValue(limit)){
-                      //Limit the length of the value array to x elements (where x has the value of the "limit" variable)
-                      value = value.slice(0, limit);
                     }
                     msg.payload = value;
                     node.send(msg);

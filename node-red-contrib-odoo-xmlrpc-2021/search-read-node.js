@@ -7,10 +7,12 @@ function isUInt(v){
 }
 
 module.exports = function (RED) {
-    var handle_error = function(err, node) {
+    var handle_error = function(err, node, fromOdoo=false) {
+      // err.message如果超过200个字符，截取最后100个字符
+        var short_message = err.message.length > 200 ? err.message.substring(err.message.length - 100) : err.message;
         node.log(err.body);
-        node.status({fill: "red", shape: "dot", text: err.message});
-        node.error(err.message);
+        node.status({fill: "red", shape: "dot", text: fromOdoo ? "Odoo server error" : short_message});
+        node.error(short_message);
     };
 
     function OdooXMLRPCSearchReadNode(config) {
@@ -25,15 +27,6 @@ module.exports = function (RED) {
                     return handle_error(err, node);
                 }
 
-                var offset = msg.offset;
-                if (isDefinedValue(offset) && !isUInt(offset)){
-                  return handle_error(new Error('When offset is provided, it must be a positive integer number'), node);
-                }
-                var limit = msg.limit;
-                if (isDefinedValue(limit) && !isUInt(limit)){
-                  return handle_error(new Error('When limit is provided, it must be a positive integer number'), node);
-                }
-
                 var inParams;
                 if (msg.filters){
                   if (!Array.isArray(msg.filters)){
@@ -45,25 +38,51 @@ module.exports = function (RED) {
                   inParams.push([]);
                 }
                 var params = [];
-                params.push(inParams);
-		            inParams.push(msg.fields);
-                inParams.push(msg.offset);
-                inParams.push(msg.limit);
-                inParams.push(msg.order);
+                params.push(inParams); // domain
+
+                var fields = msg.fields;
+                if (isDefinedValue(fields)){
+                  if (!Array.isArray(fields)){
+                    return handle_error(new Error('When fields is provided, it must be an array'), node);
+                  } else {
+                    inParams.push(fields);
+                  }
+                } else {
+                  return handle_error(new Error('fields required!'), node);
+                }
+                 
+                var offset = msg.offset;
+                if (isDefinedValue(offset)){
+                  if (!isUInt(offset)){
+                    return handle_error(new Error('When offset is provided, it must be a positive integer number'), node);
+                  } else {
+                    inParams.push(offset);
+                  }
+                }
+                var limit = msg.limit;
+                if (isDefinedValue(limit)){
+                  if (!isUInt(limit)){
+                    return handle_error(new Error('When limit is provided, it must be a positive integer number'), node);
+                  } else {
+                    inParams.push(limit);
+                  }
+                }
+                
+                var order = msg.order;
+                if (isDefinedValue(order)){
+                  if (typeof order !== 'string'){
+                    return handle_error(new Error('When order is provided, it must be a string'), node);
+                  } else {
+                    inParams.push(order);
+                  }
+                }
                 //node.log('Search-reading for model "' + config.model + '"...');
+                // domain=None, fields=None, offset=0, limit=None, order=None
                 odoo_inst.execute_kw(config.model, 'search_read', params, function (err, value) {
                     if (err) {
-                        return handle_error(err, node);
+                        return handle_error(err, node, true);
                     }
 
-                    if (isDefinedValue(offset)){
-                      //Jump the x first elements (where x has the value of the "offset" variable)
-                      value = value.slice(offset);
-                    }
-                    if (isDefinedValue(limit)){
-                      //Limit the length of the value array to x elements (where x has the value of the "limit" variable)
-                      value = value.slice(0, limit);
-                    }
                     msg.payload = value;
                     node.send(msg);
                 });
