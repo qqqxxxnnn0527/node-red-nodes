@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('odoo-xmlrpc-create', {
+    RED.nodes.registerType('odoo-create', {
         category: "odoo",
         defaults: {
             name: { value: "" },
-            host: { value: "", type: "odoo-xmlrpc-config" },
+            host: { value: "", type: "odoo-config" },
             model: { value: "", required: true },
             filter: { value: "", required: false },
             offset: {value: 0, required: false },
@@ -14,12 +14,12 @@
         icon: "white-globe.png",
         color: "#a6bbcf",
         label: function () {
-            return this.name || "odoo-xmlrpc-create"
+            return this.name || "odoo-create"
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="odoo-xmlrpc-create">
+<script type="text/x-red" data-template-name="odoo-create">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -34,6 +34,6 @@
      </div>
 </script>
 
-<script type="text/x-red" data-help-name="odoo-xmlrpc-create">
+<script type="text/x-red" data-help-name="odoo-create">
     <p>Calls the 'create' method on Odoo using the given model.</p>
 </script>

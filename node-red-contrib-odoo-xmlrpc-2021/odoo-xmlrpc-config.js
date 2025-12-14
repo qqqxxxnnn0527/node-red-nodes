@@ -19,5 +19,5 @@ module.exports = function (RED) {
             });
         };
     }
-    RED.nodes.registerType("odoo-xmlrpc-config", OdooXMLRPCConfigNode);
+    RED.nodes.registerType("odoo-config", OdooXMLRPCConfigNode);
 }

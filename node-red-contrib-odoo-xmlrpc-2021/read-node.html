@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('odoo-xmlrpc-read', {
+    RED.nodes.registerType('odoo-read', {
         category: "odoo",
         defaults: {
             name: { value: "" },
-            host: { value: "", type: "odoo-xmlrpc-config" },
+            host: { value: "", type: "odoo-config" },
             model: { value: "", required: true },
         },
         inputs: 1,
@@ -11,12 +11,12 @@
         icon: "white-globe.png",
         color: "#a6bbcf",
         label: function () {
-            return this.name || "odoo-xmlrpc-read"
+            return this.name || "odoo-read"
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="odoo-xmlrpc-read">
+<script type="text/x-red" data-template-name="odoo-read">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -31,6 +31,6 @@
      </div>
 </script>
 
-<script type="text/x-red" data-help-name="odoo-xmlrpc-read">
+<script type="text/x-red" data-help-name="odoo-read">
     <p>Calls the 'read' method on Odoo using the given model. The record ids are read as an array from the 'msg.payload'.</p>
 </script>

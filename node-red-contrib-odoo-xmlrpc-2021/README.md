@@ -1,4 +1,4 @@
-# node-red-contrib-odoo-xmlrpc-2021
+# node-red odoo
 
 ## Additions in this fork
 

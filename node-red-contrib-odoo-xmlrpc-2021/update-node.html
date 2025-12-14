@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('odoo-xmlrpc-update', {
+    RED.nodes.registerType('odoo-update', {
         category: "odoo",
         defaults: {
             name: { value: "" },
-            host: { value: "", type: "odoo-xmlrpc-config" },
+            host: { value: "", type: "odoo-config" },
             model: { value: "", required: true },
             filter: { value: "", required: false },
             offset: {value: 0, required: false },
@@ -14,12 +14,12 @@
         icon: "white-globe.png",
         color: "#a6bbcf",
         label: function () {
-            return this.name || "odoo-xmlrpc-update"
+            return this.name || "odoo-update"
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="odoo-xmlrpc-update">
+<script type="text/x-red" data-template-name="odoo-update">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -34,6 +34,6 @@
      </div>
 </script>
 
-<script type="text/x-red" data-help-name="odoo-xmlrpc-update">
+<script type="text/x-red" data-help-name="odoo-update">
     <p>Calls the 'update' method on Odoo using the given model.</p>
 </script>

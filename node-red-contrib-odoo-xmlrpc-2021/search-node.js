@@ -66,5 +66,5 @@ module.exports = function (RED) {
             });
         });
     }
-    RED.nodes.registerType("odoo-xmlrpc-search", OdooXMLRPCSearchNode);
+    RED.nodes.registerType("odoo-search", OdooXMLRPCSearchNode);
 };

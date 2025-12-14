@@ -29,5 +29,5 @@ module.exports = function (RED) {
             });
         });
     }
-    RED.nodes.registerType("odoo-xmlrpc-read", OdooXMLRPCReadNode);
+    RED.nodes.registerType("odoo-read", OdooXMLRPCReadNode);
 };

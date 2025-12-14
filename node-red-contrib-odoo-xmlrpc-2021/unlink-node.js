@@ -29,5 +29,5 @@ module.exports = function (RED) {
             });
         });
     }
-    RED.nodes.registerType("odoo-xmlrpc-unlink", OdooXMLRPCUnlinkNode);
+    RED.nodes.registerType("odoo-unlink", OdooXMLRPCUnlinkNode);
 };

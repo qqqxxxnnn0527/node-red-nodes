@@ -67,5 +67,5 @@ module.exports = function (RED) {
             });
         });
     }
-    RED.nodes.registerType("odoo-xmlrpc-exec", OdooXMLRPCExecNode);
+    RED.nodes.registerType("odoo-exec", OdooXMLRPCExecNode);
 };

@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('odoo-xmlrpc-unlink', {
+    RED.nodes.registerType('odoo-unlink', {
         category: "odoo",
         defaults: {
             name: { value: "" },
-            host: { value: "", type: "odoo-xmlrpc-config" },
+            host: { value: "", type: "odoo-config" },
             model: { value: "", required: true },
         },
         inputs: 1,
@@ -11,12 +11,12 @@
         icon: "white-globe.png",
         color: "#a6bbcf",
         label: function () {
-            return this.name || "odoo-xmlrpc-unlink"
+            return this.name || "odoo-unlink"
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="odoo-xmlrpc-unlink">
+<script type="text/x-red" data-template-name="odoo-unlink">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -31,6 +31,6 @@
      </div>
 </script>
 
-<script type="text/x-red" data-help-name="odoo-xmlrpc-unlink">
+<script type="text/x-red" data-help-name="odoo-unlink">
     <p>Calls the 'unlink' method on Odoo using the given model. The record ids are read as an array from the 'msg.payload'.</p>
 </script>

@@ -32,5 +32,5 @@ module.exports = function (RED) {
             });
         });
     }
-    RED.nodes.registerType("odoo-xmlrpc-create", OdooXMLRPCCreateNode);
+    RED.nodes.registerType("odoo-create", OdooXMLRPCCreateNode);
 };

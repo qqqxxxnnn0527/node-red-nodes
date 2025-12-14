@@ -41,5 +41,5 @@ module.exports = function (RED) {
             });
         });
     }
-    RED.nodes.registerType("odoo-xmlrpc-update", OdooXMLRPCUpdateNode);
+    RED.nodes.registerType("odoo-update", OdooXMLRPCUpdateNode);
 };

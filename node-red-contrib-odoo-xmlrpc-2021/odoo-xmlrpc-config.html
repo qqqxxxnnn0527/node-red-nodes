@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('odoo-xmlrpc-config', {
+    RED.nodes.registerType('odoo-config', {
         category: 'config',
         defaults: {
             url: {value: "", required: true},
@@ -13,7 +13,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="odoo-xmlrpc-config">
+<script type="text/x-red" data-template-name="odoo-config">
     <div class="form-row">
         <label for="node-config-input-url"><i class="fa fa-globe"></i> URL</label>
         <input type="text" id="node-config-input-url">
