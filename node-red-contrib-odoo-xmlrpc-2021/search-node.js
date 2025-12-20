@@ -7,10 +7,10 @@ function isUInt(v){
 }
 
 module.exports = function (RED) {
-    var handle_error = function(err, node) {
+    var handle_error = function(err, node, msg, fromOdoo=false) {
         node.log(err.body);
-        node.status({fill: "red", shape: "dot", text: err.message});
-        node.error(err.message);
+        node.status({fill: "red", shape: "dot", text: fromOdoo ? "Odoo server error" : err.message});
+        node.error(err.message, msg);
     };
 
     function OdooXMLRPCSearchNode(config) {
@@ -85,7 +85,7 @@ module.exports = function (RED) {
                 // domain, offset=0, limit=None, order=None, count=False
                 odoo_inst.execute_kw(config.model, 'search', params, function (err, value) {
                     if (err) {
-                        return handle_error(err, node);
+                      return handle_error(err, node, msg, true);
                     }
                     msg.payload = value;
                     node.send(msg);

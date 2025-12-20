@@ -12,7 +12,7 @@ module.exports = function (RED) {
         var short_message = err.message.length > 200 ? err.message.substring(err.message.length - 100) : err.message;
         node.log(err.body);
         node.status({fill: "red", shape: "dot", text: fromOdoo ? "Odoo server error" : short_message});
-        node.error(short_message);
+        node.error(short_message, err.message);
     };
 
     function OdooXMLRPCSearchReadNode(config) {
